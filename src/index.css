@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-color: #f9fafb;
+  --surface-color: #ffffff;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --primary-color: #111827;
+  --primary-text: #ffffff;
+  --hover-bg: #f3f4f6;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
+  --error-text: #b91c1c;
+  --success-bg: #f0fdf4;
+  --success-border: #bbf7d0;
+  --success-text: #15803d;
+}
+
+[data-theme='dark'] {
+  --bg-color: #000000;
+  --surface-color: #111111;
+  --text-main: #ffffff;
+  --text-muted: #888888;
+  --border-color: #333333;
+  --primary-color: #ffffff;
+  --primary-text: #000000;
+  --hover-bg: #222222;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --error-bg: rgba(239, 68, 68, 0.1);
+  --error-border: rgba(239, 68, 68, 0.3);
+  --error-text: #fca5a5;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --success-border: rgba(16, 185, 129, 0.3);
+  --success-text: #6ee7b7;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

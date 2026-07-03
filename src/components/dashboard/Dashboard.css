@@ -1,0 +1,97 @@
+/* Minimalist Dashboard.css */
+.dashboard-layout {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0; /* Padding handled by admin-content */
+  color: var(--text-main);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.icon-wrapper {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-header h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.card-body {
+  flex-grow: 1;
+  margin-bottom: 1.25rem;
+}
+
+.card-value {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+}
+
+.card-body p {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.card-footer {
+  margin-top: auto;
+}
+
+.action-btn {
+  width: 100%;
+  padding: 0.625rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.action-btn.primary {
+  background: var(--primary-color);
+  color: var(--primary-text);
+}
+
+.action-btn.primary:hover {
+  opacity: 0.8;
+}
+
+.action-btn.secondary {
+  background: var(--surface-color);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+.action-btn.secondary:hover {
+  background: var(--hover-bg);
+}

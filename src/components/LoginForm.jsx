@@ -1,0 +1,249 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  Mail,
+  Lock,
+  AlertCircle,
+  CheckCircle2,
+  ArrowRight,
+} from "lucide-react";
+
+const API_URL = "http://localhost:8000";
+axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
+
+function LoginForm({ onSwitchView, apiPath = '/admin/login', btnLabel = 'Login to Dashboard', createAccLabel = 'Create an admin account', checkAuthPath = null }) {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    remember: false,
+  });
+  const [errors, setErrors] = useState({});
+  const [serverError, setServerError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(!!checkAuthPath);
+
+  useEffect(() => {
+    if (checkAuthPath) {
+      axios.get(`${API_URL}${checkAuthPath}`, { headers: { Accept: 'application/json' } })
+        .then(() => {
+          onSwitchView("dashboard");
+        })
+        .catch(() => {
+          setIsCheckingAuth(false);
+        });
+    }
+  }, [checkAuthPath, onSwitchView]);
+
+  if (isCheckingAuth) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '3rem' }}>
+        <div className="spinner"></div>
+      </div>
+    );
+  }
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setServerError("");
+    setSuccessMsg("");
+
+    if (!validate()) return;
+
+    setIsLoading(true);
+
+    try {
+      await axios.get(`${API_URL}/sanctum/csrf-cookie`).catch(() => {});
+
+      const response = await axios.post(`${API_URL}${apiPath}`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+
+      setSuccessMsg("Login successful! Redirecting...");
+
+      let redirectPath = "dashboard";
+      if (response.data && response.data.redirect) {
+        try {
+          const url = new URL(response.data.redirect);
+          redirectPath = url.pathname;
+        } catch(e) {
+          redirectPath = "dashboard";
+        }
+      }
+
+      setTimeout(() => {
+        onSwitchView(redirectPath);
+      }, 1500);
+    } catch (err) {
+      if (err.response && err.response.status === 422 && err.response.data.errors) {
+        const backendErrors = err.response.data.errors;
+        const newErrors = {};
+        for (const key in backendErrors) {
+          newErrors[key] = backendErrors[key][0];
+        }
+        setErrors(newErrors);
+      } else if (
+        err.response &&
+        err.response.data &&
+        err.response.data.message
+      ) {
+        setServerError(err.response.data.message);
+      } else {
+        setServerError(
+          "An unexpected error occurred. Please try connecting to the server.",
+        );
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      {serverError && (
+        <div className="alert alert-error">
+          <AlertCircle size={18} />
+          <span>{serverError}</span>
+        </div>
+      )}
+
+      {successMsg && (
+        <div className="alert alert-success">
+          <CheckCircle2 size={18} />
+          <span>{successMsg}</span>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
+          <div className="input-wrapper">
+            <Mail className="input-icon" size={18} />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className={`form-control ${errors.email ? "is-invalid" : ""}`}
+              placeholder="admin@example.com"
+              value={formData.email}
+              onChange={handleChange}
+              disabled={isLoading}
+              autoComplete="email"
+              autoFocus
+            />
+          </div>
+          {errors.email && (
+            <div className="error-message">
+              <AlertCircle size={14} />
+              <span>{errors.email}</span>
+            </div>
+          )}
+        </div>
+
+        <div className="form-group" style={{ marginBottom: "0.5rem" }}>
+          <label htmlFor="password">Password</label>
+          <div className="input-wrapper">
+            <Lock className="input-icon" size={18} />
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              className={`form-control ${errors.password ? "is-invalid" : ""}`}
+              placeholder="••••••••"
+              value={formData.password}
+              onChange={handleChange}
+              disabled={isLoading}
+              autoComplete="current-password"
+            />
+          </div>
+          {errors.password && (
+            <div className="error-message">
+              <AlertCircle size={14} />
+              <span>{errors.password}</span>
+            </div>
+          )}
+        </div>
+
+        <label
+          className="remember-group"
+          style={{ marginTop: "0.5rem", marginBottom: "1.5rem" }}
+        >
+          <input
+            type="checkbox"
+            checked={showPassword}
+            onChange={() => setShowPassword(!showPassword)}
+          />
+          <span>Show Password</span>
+        </label>
+
+        <label className="remember-group">
+          <input
+            type="checkbox"
+            name="remember"
+            checked={formData.remember}
+            onChange={handleChange}
+            disabled={isLoading}
+          />
+          <span>Remember me</span>
+        </label>
+
+        <button type="submit" className="submit-btn" disabled={isLoading}>
+          {isLoading ? (
+            <div className="spinner"></div>
+          ) : (
+            <>
+              <span>{btnLabel}</span>
+              <ArrowRight size={18} />
+            </>
+          )}
+        </button>
+      </form>
+
+      <div className="footer-link">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            onSwitchView("register");
+          }}
+        >
+          {createAccLabel}
+        </a>
+      </div>
+    </>
+  );
+}
+
+export default LoginForm;
