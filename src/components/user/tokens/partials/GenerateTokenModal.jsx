@@ -66,6 +66,45 @@ function GenerateTokenModal({
               </button>
             </div>
 
+            {/* ── Embed Script Snippet ── */}
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', fontSize: '0.875rem', color: '#ececec' }}>EMBED SCRIPT</label>
+            <p style={{ margin: '0 0 0.75rem 0', fontSize: '0.8rem', color: '#888' }}>
+              Paste this snippet into your website's HTML to add the chatbot widget. If the user or token is disabled by an admin/manager, the widget will automatically stop working.
+            </p>
+            <div style={{ position: 'relative', marginBottom: '1.5rem' }}>
+              <pre style={{ 
+                padding: '1rem', 
+                background: '#1a1a1a', 
+                border: '1px solid #333',
+                borderRadius: '8px',
+                overflowX: 'auto',
+                fontFamily: '"Fira Code", "Consolas", monospace',
+                fontSize: '0.8rem',
+                color: '#d4d4d4',
+                margin: 0,
+                lineHeight: '1.6',
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-all',
+              }}>
+                <code>{`<script\n  src="http://localhost:4173/chatbot.iife.js"\n  data-api-url="${(import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000')}/suggest/generate"\n  data-api-key="${generatedToken.token}"\n  defer\n></script>`}</code>
+              </pre>
+              <button 
+                type="button" 
+                onClick={() => handleCopy(`<script\n  src="http://localhost:4173/chatbot.iife.js"\n  data-api-url="${(import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000')}/suggest/generate"\n  data-api-key="${generatedToken.token}"\n  defer\n></script>`, 'script')}
+                style={{ 
+                  position: 'absolute', top: '0.5rem', right: '0.5rem',
+                  padding: '0.3rem 0.75rem', 
+                  background: copyStatus === 'script' ? '#10a37f' : 'rgba(255,255,255,0.1)', 
+                  color: copyStatus === 'script' ? '#fff' : '#ccc', 
+                  border: 'none', borderRadius: '4px', 
+                  fontSize: '0.75rem', fontWeight: '500', cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                {copyStatus === 'script' ? '✓ Copied!' : 'Copy Script'}
+              </button>
+            </div>
+
             <button type="button" onClick={() => { onClose(); setGeneratedToken(null); }} style={{ width: '100%', padding: '0.625rem', background: '#fff', color: '#000', border: 'none', borderRadius: '6px', fontWeight: '500', cursor: 'pointer' }}>Done</button>
           </div>
         ) : (
