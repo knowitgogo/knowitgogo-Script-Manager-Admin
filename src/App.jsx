@@ -27,6 +27,7 @@ import UserDashboard from './components/user/Dashboard';
 import UserStatus from './components/user/Status';
 import UserRequests from './components/user/Requests';
 import UserTokens from './components/user/tokens/index';
+import UserAnalytics from './components/user/Analytics';
 
 import './App.css';
 
@@ -154,6 +155,7 @@ function App() {
           <Route path="status" element={<UserStatus />} />
           <Route path="requests" element={<UserRequests />} />
           <Route path="tokens" element={<UserTokens />} />
+          <Route path="analytics" element={<UserAnalytics />} />
           <Route path="*" element={<NotFound />} />
         </Route>
 

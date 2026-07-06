@@ -62,6 +62,7 @@ function UserLayout() {
           <Link to="/user/tokens" className={`nav-link ${isActive('/user/tokens')}`}>Tokens</Link>
           <Link to="/user/requests" className={`nav-link ${isActive('/user/requests')}`}>Requests</Link>
           <Link to="/user/status" className={`nav-link ${isActive('/user/status')}`}>Status</Link>
+          <Link to="/user/analytics" className={`nav-link ${isActive('/user/analytics')}`}>Analytics</Link>
         </div>
         <div className="nav-actions-container">
           {userName && <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginRight: '0.75rem', fontWeight: 500 }}>Hi, {userName}</span>}
