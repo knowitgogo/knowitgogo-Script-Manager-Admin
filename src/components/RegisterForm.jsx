@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Mail, Lock, User, AlertCircle, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Mail, Lock, User, AlertCircle, CheckCircle2, ArrowRight, Eye, EyeOff } from 'lucide-react';
 
 axios.defaults.withCredentials = true;
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -167,12 +167,18 @@ function RegisterForm({ onSwitchView, apiPath = '/admin/register', btnLabel = 'R
               type={showPassword ? "text" : "password"}
               id="password"
               name="password"
-              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+              className={`form-control has-right-icon ${errors.password ? 'is-invalid' : ''}`}
               placeholder="••••••••"
               value={formData.password}
               onChange={handleChange}
               disabled={isLoading}
             />
+            <div 
+              className="toggle-password-icon" 
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </div>
           </div>
           {errors.password && (
             <div className="error-message">
@@ -190,12 +196,18 @@ function RegisterForm({ onSwitchView, apiPath = '/admin/register', btnLabel = 'R
               type={showPassword ? "text" : "password"}
               id="password_confirmation"
               name="password_confirmation"
-              className={`form-control ${errors.password_confirmation ? 'is-invalid' : ''}`}
+              className={`form-control has-right-icon ${errors.password_confirmation ? 'is-invalid' : ''}`}
               placeholder="••••••••"
               value={formData.password_confirmation}
               onChange={handleChange}
               disabled={isLoading}
             />
+            <div 
+              className="toggle-password-icon" 
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </div>
           </div>
           {errors.password_confirmation && (
             <div className="error-message">
@@ -205,14 +217,6 @@ function RegisterForm({ onSwitchView, apiPath = '/admin/register', btnLabel = 'R
           )}
         </div>
 
-        <label className="remember-group" style={{ marginTop: "0.5rem", marginBottom: "1.5rem" }}>
-          <input
-            type="checkbox"
-            checked={showPassword}
-            onChange={() => setShowPassword(!showPassword)}
-          />
-          <span>Show Password</span>
-        </label>
 
         <button type="submit" className="submit-btn" disabled={isLoading} style={{ marginTop: '1.5rem' }}>
           {isLoading ? (

@@ -6,6 +6,8 @@ import {
   AlertCircle,
   CheckCircle2,
   ArrowRight,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 
 const API_URL = "http://localhost:8000";
@@ -180,13 +182,19 @@ function LoginForm({ onSwitchView, apiPath = '/admin/login', btnLabel = 'Login t
               type={showPassword ? "text" : "password"}
               id="password"
               name="password"
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
+              className={`form-control has-right-icon ${errors.password ? "is-invalid" : ""}`}
               placeholder="••••••••"
               value={formData.password}
               onChange={handleChange}
               disabled={isLoading}
               autoComplete="current-password"
             />
+            <div 
+              className="toggle-password-icon" 
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </div>
           </div>
           {errors.password && (
             <div className="error-message">
@@ -195,18 +203,6 @@ function LoginForm({ onSwitchView, apiPath = '/admin/login', btnLabel = 'Login t
             </div>
           )}
         </div>
-
-        <label
-          className="remember-group"
-          style={{ marginTop: "0.5rem", marginBottom: "1.5rem" }}
-        >
-          <input
-            type="checkbox"
-            checked={showPassword}
-            onChange={() => setShowPassword(!showPassword)}
-          />
-          <span>Show Password</span>
-        </label>
 
         <label className="remember-group">
           <input
@@ -219,14 +215,11 @@ function LoginForm({ onSwitchView, apiPath = '/admin/login', btnLabel = 'Login t
           <span>Remember me</span>
         </label>
 
-        <button type="submit" className="submit-btn" disabled={isLoading}>
+        <button type="submit" className="submit-btn login-submit-btn" disabled={isLoading}>
           {isLoading ? (
             <div className="spinner"></div>
           ) : (
-            <>
-              <span>{btnLabel}</span>
-              <ArrowRight size={18} />
-            </>
+            <span>Login</span>
           )}
         </button>
       </form>

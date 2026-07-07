@@ -7,7 +7,10 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   box-shadow: var(--shadow);
-  margin: 4rem auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   transition: background-color 0.3s, border-color 0.3s;
 }
 
@@ -65,18 +68,50 @@
   height: 18px;
 }
 
+.toggle-password-icon {
+  position: absolute;
+  right: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  transition: color 0.2s;
+}
+
+.toggle-password-icon:hover {
+  color: var(--text-main);
+}
+
 .form-control {
   width: 100%;
   padding: 0.75rem 1rem 0.75rem 2.5rem;
-  background: var(--surface-color);
+  background: transparent;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   color: var(--text-main);
   font-size: 0.95rem;
   font-family: inherit;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, background-color 5000s ease-in-out 0s;
   outline: none;
   box-sizing: border-box;
+}
+
+.form-control.has-right-icon {
+  padding-right: 2.5rem;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--surface-color) inset !important;
+  box-shadow: 0 0 0 1000px var(--surface-color) inset !important;
+  -webkit-text-fill-color: var(--text-main) !important;
+  color: var(--text-main) !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .form-control:focus {
@@ -195,4 +230,13 @@
 
 .footer-link a:hover {
   text-decoration: underline;
+}
+.login-submit-btn {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+.login-submit-btn:hover:not(:disabled) {
+  background: #1d4ed8 !important;
+  opacity: 1;
 }
