@@ -206,7 +206,7 @@ function TokensIndex() {
                   <td style={{ color: 'var(--text-muted)' }}>{token.expires_at ? new Date(token.expires_at).toLocaleDateString() : 'Never'}</td>
                   <td style={{ color: 'var(--text-muted)' }}>{token.usages_24h_count || 0} API Calls</td>
                   <td style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                    <button onClick={() => openEditModal(token)} className="action-btn" style={{ padding: '0.5rem', background: 'var(--surface-color)', border: 'none', color: 'var(--text-muted)', width: 'auto', minWidth: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '6px' }}>
+                    <button onClick={() => openEditModal(token)} className="action-btn" style={{ padding: '0.5rem', background: 'rgba(37, 99, 235, 0.1)', border: 'none', color: 'var(--primary-color)', width: 'auto', minWidth: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '6px' }}>
                       <Pencil size={16} />
                     </button>
                     <button onClick={() => handleDelete(token.id)} className="action-btn" style={{ padding: '0.5rem', background: 'rgba(255, 69, 58, 0.1)', border: 'none', color: 'var(--error-text)', width: 'auto', minWidth: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '6px' }}>

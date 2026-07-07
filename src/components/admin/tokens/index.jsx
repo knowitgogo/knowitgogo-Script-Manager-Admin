@@ -108,8 +108,10 @@ function TokensIndex() {
         <thead>
           <tr>
             <th>Name</th>
+            <th>User</th>
             <th>Token (Prefix)</th>
             <th>Last Used At</th>
+            <th>Usage Count</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -118,8 +120,10 @@ function TokensIndex() {
             tokens.map(token => (
               <tr key={token.id}>
                 <td>{token.name}</td>
+                <td>{token.user ? token.user.name : 'Unknown User'}</td>
                 <td>{token.token}</td>
-                <td>{token.last_used_at || 'Never'}</td>
+                <td>{token.usages_max_created_at ? new Date(token.usages_max_created_at).toLocaleString() : 'Never'}</td>
+                <td>{token.usage_count || 0}</td>
                 <td>
                   <button 
                     style={{ 
@@ -139,7 +143,7 @@ function TokensIndex() {
             ))
           ) : (
             <tr>
-              <td colSpan="4" style={{ textAlign: 'center', borderBottom: 'none', color: 'var(--text-muted)', padding: '3rem 0' }}>No tokens found</td>
+              <td colSpan="6" style={{ textAlign: 'center', borderBottom: 'none', color: 'var(--text-muted)', padding: '3rem 0' }}>No tokens found</td>
             </tr>
           )}
         </tbody>
