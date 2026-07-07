@@ -144,7 +144,22 @@ function GenerateTokenModal({
                 <option value="30_days">30 days ({calculateDate(30)})</option>
                 <option value="60_days">60 days ({calculateDate(60)})</option>
                 <option value="90_days">90 days ({calculateDate(90)})</option>
+                <option value="custom">Custom date...</option>
               </select>
+              {newTokenExpiry === 'custom' && (
+                <input
+                  type="date"
+                  id="customExpiryDate"
+                  min={new Date(Date.now() + 86400000).toISOString().split('T')[0]}
+                  onChange={e => setNewTokenExpiry('custom:' + e.target.value)}
+                  style={{ width: '100%', marginTop: '0.5rem', background: '#212121', border: '1px solid #333', color: '#fff', padding: '0.625rem 0.75rem', borderRadius: '6px', fontSize: '0.875rem', boxSizing: 'border-box' }}
+                />
+              )}
+              {newTokenExpiry.startsWith('custom:') && (
+                <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.875rem', color: '#10a37f' }}>
+                  Expires on: {new Date(newTokenExpiry.split(':').slice(1).join(':') + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                </p>
+              )}
               <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.875rem', color: '#888' }}>
                 Your API key will stop working after this date.
               </p>

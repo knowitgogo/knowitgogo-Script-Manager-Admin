@@ -61,7 +61,14 @@ function TokensIndex() {
     setGenerateError(null);
     setIsGenerating(true);
     try {
-      const response = await axios.post(`${API_URL}/token/generate`, { name: newTokenName, expiry: newTokenExpiry }, {
+      // Parse custom expiry: "custom:2026-08-15" → expiry="custom", custom_date="2026-08-15"
+      let expiry = newTokenExpiry;
+      let customDate = null;
+      if (newTokenExpiry.startsWith('custom:')) {
+        expiry = 'custom';
+        customDate = newTokenExpiry.split(':').slice(1).join(':');
+      }
+      const response = await axios.post(`${API_URL}/token/generate`, { name: newTokenName, expiry, custom_date: customDate }, {
         headers: { 'Accept': 'application/json' }
       });
       setGeneratedToken(response.data.data);

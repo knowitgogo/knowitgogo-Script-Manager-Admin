@@ -130,15 +130,6 @@ function Dashboard({ onSwitchView }) {
         />
 
         <DashboardCard
-          title="Pending Requests"
-          description="Review and approve pending access requests."
-          icon={FileText}
-          actionLabel="View Requests"
-          primary={false}
-          onClick={() => navigate('/admin/requests')}
-        />
-
-        <DashboardCard
           title="Create Manager"
           description="Provision a new manager account with restricted privileges."
           icon={UserPlus}
