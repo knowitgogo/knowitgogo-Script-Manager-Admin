@@ -57,7 +57,7 @@ function RequestsView() {
             ))
           ) : (
             <tr>
-              <td colSpan="4" style={{ textAlign: 'center' }}>No pending requests</td>
+              <td colSpan="4" style={{ textAlign: 'center', borderBottom: 'none', color: 'var(--text-muted)', padding: '3rem 0' }}>No pending requests</td>
             </tr>
           )}
         </tbody>

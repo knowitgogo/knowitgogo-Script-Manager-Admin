@@ -96,18 +96,12 @@ function TokensIndex() {
           />
           <button 
             className="nav-logout-btn" 
-            style={{ background: 'var(--surface-color)', color: 'var(--text-main)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem' }}
+            style={{ background: 'transparent', color: 'var(--text-main)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem' }}
             onClick={() => { setCurrentPage(1); fetchTokens(1, search); }}
           >
             Search
           </button>
-          <button 
-            className="nav-logout-btn" 
-            style={{ background: 'var(--primary-color)', color: 'var(--primary-text)', marginLeft: '0.5rem' }}
-            onClick={() => setShowGenerateModal(true)}
-          >
-            Generate Token
-          </button>
+
         </div>
       </div>
       <table className="admin-table">
@@ -127,13 +121,25 @@ function TokensIndex() {
                 <td>{token.token}</td>
                 <td>{token.last_used_at || 'Never'}</td>
                 <td>
-                  <button>Revoke</button>
+                  <button 
+                    style={{ 
+                      padding: '0.35rem 0.75rem', 
+                      background: 'var(--error-bg)',
+                      color: 'var(--error-text)',
+                      border: '1px solid var(--error-border)',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontWeight: '500'
+                    }}
+                  >
+                    Revoke
+                  </button>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="4" style={{ textAlign: 'center' }}>No tokens found</td>
+              <td colSpan="4" style={{ textAlign: 'center', borderBottom: 'none', color: 'var(--text-muted)', padding: '3rem 0' }}>No tokens found</td>
             </tr>
           )}
         </tbody>

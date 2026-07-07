@@ -39,7 +39,7 @@ function Status() {
   if (!user) return <div>Failed to load status.</div>;
 
   return (
-    <div className="admin-card" style={{ maxWidth: '800px' }}>
+    <div className="admin-card" style={{ maxWidth: '800px', margin: '0 auto' }}>
       <h2 style={{ margin: '0 0 1.5rem 0', color: 'var(--text-main)' }}>Account Status</h2>
       
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

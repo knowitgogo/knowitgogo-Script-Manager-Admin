@@ -222,10 +222,7 @@ function RegisterForm({ onSwitchView, apiPath = '/admin/register', btnLabel = 'R
           {isLoading ? (
             <div className="spinner"></div>
           ) : (
-            <>
-              <span>{btnLabel}</span>
-              <ArrowRight size={18} />
-            </>
+            <span>Register</span>
           )}
         </button>
       </form>

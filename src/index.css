@@ -6,7 +6,7 @@
   --text-main: #111827;
   --text-muted: #6b7280;
   --border-color: #e5e7eb;
-  --primary-color: #111827;
+  --primary-color: #2563eb;
   --primary-text: #ffffff;
   --hover-bg: #f3f4f6;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -24,8 +24,8 @@
   --text-main: #ffffff;
   --text-muted: #888888;
   --border-color: #333333;
-  --primary-color: #ffffff;
-  --primary-text: #000000;
+  --primary-color: #3b82f6;
+  --primary-text: #ffffff;
   --hover-bg: #222222;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   --error-bg: rgba(239, 68, 68, 0.1);

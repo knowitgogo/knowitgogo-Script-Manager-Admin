@@ -143,7 +143,7 @@ function ManagersIndex() {
           />
           <button 
             className="nav-logout-btn" 
-            style={{ background: 'var(--surface-color)', color: 'var(--text-main)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem' }}
+            style={{ background: 'transparent', color: 'var(--text-main)', border: '1px solid var(--border-color)', padding: '0.5rem 1rem' }}
             onClick={() => { setCurrentPage(1); fetchManagers(1, search); }}
           >
             Search
@@ -175,8 +175,35 @@ function ManagersIndex() {
                 <td>{manager.name}</td>
                 <td>{manager.email}</td>
                 <td>
-                  <button style={{ marginRight: '0.5rem' }} onClick={() => handleOpenEdit(manager)}>Edit</button>
-                  <button onClick={() => handleDelete(manager.id)}>Delete</button>
+                  <button 
+                    onClick={() => handleOpenEdit(manager)}
+                    style={{ 
+                      padding: '0.35rem 0.75rem', 
+                      background: 'transparent',
+                      color: 'var(--primary-color)',
+                      border: '1px solid var(--primary-color)',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontWeight: '500',
+                      marginRight: '0.5rem'
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button 
+                    onClick={() => handleDelete(manager.id)}
+                    style={{ 
+                      padding: '0.35rem 0.75rem', 
+                      background: 'var(--error-bg)',
+                      color: 'var(--error-text)',
+                      border: '1px solid var(--error-border)',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontWeight: '500'
+                    }}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))
